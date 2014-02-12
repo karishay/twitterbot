@@ -1,4 +1,4 @@
-import sys 
+import sys, random
 
 def make_chains(corpus):
     """Takes an input text as a string and returns a dictionary of
@@ -29,25 +29,32 @@ def make_chains(corpus):
 def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
     based off an original text."""
-    # we need the dictionary we made
-    # return a string of random text made from the chains in the dictionary we created
-    # make a string of three words
-    # try using random.choice
-    # maybe use the random number to access a list using their index
-        #but we really want the tuple, so that index(the random number) and the one next to it
-    
+   
+    #the variable name of our dictionary we created will now be called 'chains'
     #make a list
-    #generate a random number 
+        #split the psalms of david into a list
+    #seperated_words = input_text.split()
+
+    #generate a random number
+    # choice(chains.keys())
+    #rando_number = random.choice(range(len(seperated_words)))
+
     #find the value of that index in the list, and the item next to it (this is the first random tuple to begin our random sentance)
-    #find the matching tuple in the dictionary
-    #use the dictionary to find a random third word after the tuple
-    #use random choice to generate another random number
-    #find the thing at index[random]
+    tuple_variable = random.choice(chains.keys())
+
+    #returns the matching value (a list of possible third words)
+    list_of_third_words = chains.get(tuple_variable)
+    
+    #generated a random number
+    second_rando_number = random.choice(range(len(list_of_third_words)))
+
+    #find the thing at list[random_index]
+    third_word = list_of_third_words[second_rando_number]
+
     # add the two strings together
-    # print that shit, yo
+    sentence = tuple_variable[0] + tuple_variable[1] + third_word
 
-
-    return "Here's some random text."
+    return sentence
 
 def main():
     #unpacking the arguments
@@ -63,8 +70,8 @@ def main():
     opened_file.close()
 
     chain_dict = make_chains(input_text)
-    # random_text = make_text(chain_dict)
-    print chain_dict
+    random_text = make_text(chain_dict)
+
 
 if __name__ == "__main__":
     main()

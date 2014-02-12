@@ -1,4 +1,4 @@
-import sys, random
+import sys, random, twitter, os 
 
 def make_chains(corpus):
     """Takes an input text as a string and returns a dictionary of
@@ -47,6 +47,17 @@ def make_text(chains):
 
     return sentence
 
+#mix two authors as a single source
+#TODO modify the program to allow any number of words to use as keys
+#TODO modify it to start with a capital and end with a punctuation
+
+#create a function that gives twitter access to twit our tweets
+def tweet_text(some_text):
+    twitter_api_key = os.environ.get("TWITTER_API_KEY")
+    twitter_api_secret = os.environ.get("TWITTER_API_SECRET")
+    print twitter_api_key, twitter_api_secret
+    #add code here to actually tweet via the command line
+
 def main():
     #unpacking the arguments
     script, filename = sys.argv
@@ -61,7 +72,7 @@ def main():
     opened_file.close()
 
     chain_dict = make_chains(input_text)
-    random_text = make_text(chain_dict)
+    random_text = make_text(chain_dict) + " " + make_text(chain_dict)
     print random_text
 
 if __name__ == "__main__":

@@ -10,19 +10,19 @@ def make_chains(corpus):
     list_of_words = corpus.split()
 
     #create a for loop to loop over our list of words
-    for i in range(len(list_of_words)-2):
+    for i in range(len(list_of_words)-3):
 
          #create a variable that holds the values of adjacent words
-        key_tuple = (list_of_words[i], list_of_words[i+ 1])
+        key_tuple = (list_of_words[i], list_of_words[i+ 1], list_of_words[i + 2])
 
         #if the key_tuple is in the dictionary then:
         if dict_of_markov.get(key_tuple):
             #append the word after the tuple of words to the value pair
-            dict_of_markov[key_tuple].append(list_of_words[i + 2])
+            dict_of_markov[key_tuple].append(list_of_words[i + 3])
         else:
             # if the key_tuple is not there, add that shit to the dictionary
             # and set the value equal to the word following the tuple
-            dict_of_markov[key_tuple] = [list_of_words[i + 2]]
+            dict_of_markov[key_tuple] = [list_of_words[i + 3]]
     #return the dictionary of markov chains we just made with our awesome brains
     return dict_of_markov
 
@@ -30,15 +30,6 @@ def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
     based off an original text."""
    
-    #the variable name of our dictionary we created will now be called 'chains'
-    #make a list
-        #split the psalms of david into a list
-    #seperated_words = input_text.split()
-
-    #generate a random number
-    # choice(chains.keys())
-    #rando_number = random.choice(range(len(seperated_words)))
-
     #find the value of that index in the list, and the item next to it (this is the first random tuple to begin our random sentance)
     tuple_variable = random.choice(chains.keys())
 
@@ -52,7 +43,7 @@ def make_text(chains):
     third_word = list_of_third_words[second_rando_number]
 
     # add the two strings together
-    sentence = tuple_variable[0] + " " + tuple_variable[1] + " " +third_word
+    sentence = tuple_variable[0] + " " + tuple_variable[1] + " " + tuple_variable[2]+ " " +third_word
 
     return sentence
 

@@ -52,7 +52,7 @@ def make_text(chains):
     third_word = list_of_third_words[second_rando_number]
 
     # add the two strings together
-    sentence = tuple_variable[0] + tuple_variable[1] + third_word
+    sentence = tuple_variable[0] + " " + tuple_variable[1] + " " +third_word
 
     return sentence
 
@@ -71,7 +71,7 @@ def main():
 
     chain_dict = make_chains(input_text)
     random_text = make_text(chain_dict)
-
+    print random_text
 
 if __name__ == "__main__":
     main()

@@ -53,10 +53,18 @@ def make_text(chains):
 
 #create a function that gives twitter access to twit our tweets
 def tweet_text(some_text):
-    twitter_api_key = os.environ.get("TWITTER_API_KEY")
-    twitter_api_secret = os.environ.get("TWITTER_API_SECRET")
-    print twitter_api_key, twitter_api_secret
-    #add code here to actually tweet via the command line
+    #creating the keys to get into Psalms of Cartman Twitter account:
+    twitter_consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
+    twitter_consumer_secret = os.environ.get("TWITTER_CONSUMER_SECRET")
+    twitter_token_key = os.environ.get("TWITTER_TOKEN_KEY")
+    twitter_token_secret = os.environ.get("TWITTER_TOKEN_SECRET")
+
+    #send the keys to the twitter API so we can actually use it. (I think?)
+    api = twitter.Api(consumer_key = twitter_consumer_key , consumer_secret = twitter_consumer_secret, access_token_key = twitter_token_key , access_token_secret = twitter_token_secret )
+
+    #now post our random generate message to twitter!
+    status = api.PostUpdate(some_text)
+    print status.text
 
 def main():
     #unpacking the arguments
@@ -73,6 +81,7 @@ def main():
 
     chain_dict = make_chains(input_text)
     random_text = make_text(chain_dict) + " " + make_text(chain_dict)
+    tweet_text(random_text)
     print random_text
 
 if __name__ == "__main__":

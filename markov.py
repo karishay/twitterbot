@@ -82,7 +82,6 @@ def main():
     chain_dict = make_chains(input_text)
     random_text = make_text(chain_dict) + " " + make_text(chain_dict)
     tweet_text(random_text)
-    print random_text
 
 if __name__ == "__main__":
     main()

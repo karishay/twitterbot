@@ -1,6 +1,7 @@
-import sys, random, twitter, os 
+import sys, random, os 
+#you took out the twitter module 
 
-def make_chains(corpus):
+def make_chains(corpus, chain_size):
     """Takes an input text as a string and returns a dictionary of
     markov chains."""
     #create an empty dictionary
@@ -9,22 +10,34 @@ def make_chains(corpus):
     #take input text and put it in a list
     list_of_words = corpus.split()
 
-    #create a for loop to loop over our list of words
-    for i in range(len(list_of_words)-3):
-
-         #create a variable that holds the values of adjacent words
-        key_tuple = (list_of_words[i], list_of_words[i+ 1], list_of_words[i + 2])
-
-        #if the key_tuple is in the dictionary then:
-        if dict_of_markov.get(key_tuple):
+    for i in range(len(list_of_words) - chain_size):
+         
+        key = tuple(list_of_words[0:chain_size])
+        print key
+        #if the key is in the dictionary then:
+        #if dict_of_markov.get(key):
             #append the word after the tuple of words to the value pair
-            dict_of_markov[key_tuple].append(list_of_words[i + 3])
-        else:
-            # if the key_tuple is not there, add that shit to the dictionary
+        #    dict_of_markov[key].append(list_of_words[i + chain_size])
+        #else:
+            # if the key is not there, add that shit to the dictionary
             # and set the value equal to the word following the tuple
-            dict_of_markov[key_tuple] = [list_of_words[i + 3]]
+
+         #   dict_of_markov[key] = [list_of_words[i + chain_size]]
     #return the dictionary of markov chains we just made with our awesome brains
     return dict_of_markov
+
+
+def choose_first_tuple(dict_of_markov):
+    #randomly generate a tuple from the list
+    random_first_tuple = random.choice(dict_of_markov.keys())
+    #if the first letter of the first word does not start with a capital
+    first_letter = ord(random_first_tuple[0][0]) 
+    if first_letter > 91:
+        #replace it with another random tuple
+        random_first_tuple = random.choice(dict_of_markov.keys())
+    #otherwise return that tuple
+    else:
+        print random_first_tuple
 
 def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
@@ -45,7 +58,14 @@ def make_text(chains):
     # add the two strings together
     sentence = tuple_variable[0] + " " + tuple_variable[1] + " " + tuple_variable[2]+ " " +third_word
 
+
+    # add a step that resets the tuple to thenew value of the third word and the second tuple item
+    #then repeat
     return sentence
+
+#TODO do this shit yo
+def add_ending(sentence):
+    pass
 
 #mix two authors as a single source
 #TODO modify the program to allow any number of words to use as keys
@@ -76,12 +96,17 @@ def main():
     #read a file
     input_text = opened_file.read()
 
-    #close a file
+    #close a fileic
     opened_file.close()
 
-    chain_dict = make_chains(input_text)
-    random_text = make_text(chain_dict) + " " + make_text(chain_dict)
-    tweet_text(random_text)
+    #call the functions
+    chain_dict = make_chains(input_text, 6)
+    choose_first_tuple(chain_dict)
+    #random_text = make_text(chain_dict) + " " + make_text(chain_dict)
+    #tweet_text(random_text)
 
 if __name__ == "__main__":
     main()
+
+
+
